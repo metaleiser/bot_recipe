@@ -10,21 +10,31 @@ Basado en L2J Mobius (MIT License) — https://l2jmobius.org. Bot Recipe se dist
 
 ---
 
-## Qué ves en las fotos
+## Showcase
 
-**1. Tu party completa `docs/images/01-party-lineup.jpg`:**
+### Tu party completa en ciudad
+
+![](docs/images/01-party-lineup.jpg)
+
 ADMIN Lv.85 Cardinal (tú, conectado) + 8 bots Lv.84 de tu misma cuenta: Phoenix, Duelist, Arica, Brutaleiser, Metaleiser, Maldita, Churro, Maldito. No son NPCs. Son `Player` reales con `GameClient == null` (clientless).
 
-**2. Formación desde arriba `docs/images/02-formation-top.jpg`:**
-`Formation ON` = cada bot guarda su anillo alrededor tuyo. Corres, te siguen. Paras, se ordenan.
+### Formación desde arriba — Formation ON
 
-**3. Tu plancha de mando `docs/images/03-bots-panel.jpg`:**
+![](docs/images/02-formation-top.jpg)
+
+Cada bot guarda su anillo alrededor tuyo. Corres, te siguen. Paras, se ordenan.
+
+### Tu plancha de mando — ventana `.bot`
+
+![](docs/images/03-bots-panel.jpg)
+
 Escribes `.bot` y se abre. `START` = tu autofarm. `Autofarm / Assist / Formation` = 3 interruptores de la party. `Dismiss All` = apagar limpio. Cada fila `84 Phoenix Phoenix Knight [Login] [Config]` = slot 2..9. `[Login]` mete/saca sin logout. `[Config]` configura sin salir.
 
-**4. El .play espejado `docs/images/04-autoplay-config.jpg`:**
-Es el `.play` de toda la vida (Auto Attack, Auto Loot, Target Mode, HP Percent, Select Skill) pero dentro del `.bot`. Se guarda al momento en `character_variables`.
+### El `.play` espejado — Auto Play Config
 
-> Guarda tus 4 capturas en `docs/images/` con esos nombres. Si faltan, el texto igual sirve.
+![](docs/images/04-autoplay-config.jpg)
+
+Es el `.play` de toda la vida (Auto Attack, Auto Loot, Target Mode, HP Percent, Select Skill) pero dentro del `.bot`. Se guarda al momento en `character_variables`.
 
 ---
 
