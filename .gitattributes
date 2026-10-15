@@ -1,0 +1,21 @@
+# BOTAI-RECIPE - payload congelado
+# Los hashes SHA-256 del MANIFEST.json se calculan sobre los bytes reales del
+# payload, que es CRLF puro y sin BOM (AutoPotionTaskManager.java y
+# AdminHandoffTest.java se normalizaron a CRLF en la revision JDK 27).
+#
+# 'text' desactivado a proposito: con text=auto o eol=crlf, un checkout con un
+# core.autocrlf distinto del de empaquetado reescribe los finales de linea y
+# deja el payload con bytes distintos a los que declara el manifiesto, con lo
+# que install.ps1 aborta por 'hash del payload no coincide'. Marcando los
+# ficheros como binarios, Git guarda y devuelve los bytes exactos.
+#
+# install.ps1, verify.ps1 y rollback.ps1 son ademas tolerantes al EOL: calculan
+# los hashes sobre bytes canonicos (CR + LF -> LF), asi que aunque un fichero
+# llegue con CRLF o LF el hash declarado sigue siendo valido.
+* -text
+*.java -text
+*.json -text
+*.ps1 -text
+*.md -text
+*.htm -text
+*.xml -text

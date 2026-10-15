@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../xsd/skills.xsd">
+	<skill id="10000" levels="1" name="Mana Drug">
+		<operateType>A1</operateType>
+		<targetType>SELF</targetType>
+		<abnormalTime>15</abnormalTime>
+		<displayId>2288</displayId>
+		<isMagic>2</isMagic> <!-- Static Skill -->
+		<itemConsumeCount>1</itemConsumeCount>
+		<itemConsumeId>726</itemConsumeId>
+		<magicLevel>1</magicLevel>
+		<reuseDelay>10000</reuseDelay>
+		<effects>
+			<effect name="ManaHealOverTime" ticks="3">
+				<power>1.5</power>
+			</effect>
+		</effects>
+	</skill>
+	<skill id="10001" levels="1" name="Mana Potion">
+		<operateType>A1</operateType>
+		<targetType>SELF</targetType>
+		<displayId>2288</displayId>
+		<isMagic>2</isMagic> <!-- Static Skill -->
+		<itemConsumeCount>1</itemConsumeCount>
+		<itemConsumeId>728</itemConsumeId>
+		<magicLevel>1</magicLevel>
+		<reuseDelay>10000</reuseDelay> <!-- BOTAI: 10 s of reuse between two Mana Potions -->
+		<effects>
+			<effect name="ManaHeal">
+				<power>800</power> <!-- BOTAI: 800 mp restored, static so it is a flat amount -->
+			</effect>
+		</effects>
+	</skill>
+	<skill id="10002" levels="1" name="Custom Trap skill">
+		<!-- Use this skill if you want to handle trap activation in scripts(example Seed of Destruction Spawn Traps) -->
+		<operateType>P</operateType>
+		<targetType>AURA</targetType>
+		<isMagic>1</isMagic> <!-- Magic Skill -->
+	</skill>
+</list>

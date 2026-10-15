@@ -1,0 +1,19 @@
+# Bot Recipe - nunca subir el runtime ni corridas
+_botai-runs/
+backup/
+pre/
+reverted-*/
+*.jar
+*.log
+log-install.txt
+jar-entries-*.txt
+file-hashes-*.txt
+destinos.json
+.botai_write_test_*.tmp
+staged-*.jar
+# OS / IDE
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp

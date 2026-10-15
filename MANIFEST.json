@@ -1,0 +1,360 @@
+{
+    "recipe":  "BOTAI-RECIPE",
+    "version":  "2.9",
+    "description":  "Bot Manager para Players reales de la misma cuenta. Toda la orquestacion vive en AdminBotManager.java. v2.9: curacion del Cardinal - las nueve habilidades de curacion (1011, 1015, 1027, 1217, 1218, 1219, 1401, 1402, 1553) participan bajo el mismo umbral configurable de HP (getAutoPotionPercent del .play); el orden depende del numero de heridos y cada id conserva su targetType nativo; castOnSupportTarget informa el resultado real de cada intento (isCastingNow() y el flag simultaneo solo si se enciende en la llamada) para que un candidato que el motor aborta no bloquee a los siguientes ni un casteo simultaneo heredado se confunda con exito. Hereda v2.8 (SkillRules inertes), v2.7 (AdminBotManager consolidado + AdminHandoffTest/AdminSwapTest de produccion) y v2.6 (1553 primero, canUseMagic pre-cast).",
+    "target_runtime":  "L2J Mobius CT 2.6 High Five compiled runtime",
+    "toolchain":  {
+                      "jdk":  27,
+                      "class_major":  71,
+                      "class_minor":  0,
+                      "reference_class":  {
+                                              "class":  "org/l2jmobius/gameserver/taskmanagers/AutoUseTaskManager$AutoUse.class",
+                                              "compiled_with":  "javac 27 (BellSoft Liberica 27+36)",
+                                              "size_bytes":  21657,
+                                              "class_major":  71,
+                                              "class_minor":  0,
+                                              "sha256":  "29537E614FE48566868DF1926E90EB6A7AFD3C556E41E970C3EF318275C4482B"
+                                          }
+                  },
+    "payload":  [
+                    {
+                        "op":  "COPY",
+                        "source":  "payload/AdminBotManager.java",
+                        "destination":  "game/data/scripts/handlers/chat/commands/admin/AdminBotManager.java",
+                        "sha256":  "D619B915F01DDC755A62867A7FA5B5420136738661406B287241CF5D72FCB0D6",
+                        "op_note":  "v2.7: .bot consolidado - fila [Login][Config], Login ejecuta swapMode (sin Party -\u003e AdminSwapTest.runSwap, con Party -\u003e AdminHandoffTest.runHandoff), OrchestratorState capture/transfer (BOT_OWNERS, ASSIST, PARTY_AUTOPLAY, BotFormationMode+forget), guard de Party Leader solo en ADD/REMOVE; hereda v2.4 UI"
+                    },
+                    {
+                        "op":  "COPY",
+                        "source":  "payload/AutoPlayProfileBuilder.java",
+                        "destination":  "game/data/scripts/handlers/custom/bot/AutoPlayProfileBuilder.java",
+                        "sha256":  "354AE425BF703533830CBFBE841024E2BDE938AE6D26EF95D883109DC7402942"
+                    },
+                    {
+                        "op":  "COPY",
+                        "source":  "payload/BotFormationMode.java",
+                        "destination":  "game/data/scripts/handlers/custom/bot/BotFormationMode.java",
+                        "sha256":  "FA0E00375A7036C58288D6BD8E1CC11F30281E751B5F198A884467D5CF88E67D",
+                        "op_note":  "v2.4: isBusy con target primero (el engaged nunca se reclama), laggard-rule intacta para caster sin target"
+                    },
+                    {
+                        "op":  "REPLACE",
+                        "source":  "payload/10000-10099.xml",
+                        "destination":  "game/data/stats/skills/custom/10000-10099.xml",
+                        "sha256":  "31BB4B175ECCB90B7DD1AD433078DC6E2B6A96F9DFED4834D238D1F3C050DD0F"
+                    },
+                    {
+                        "op":  "COPY",
+                        "source":  "payload/BotCommand.java",
+                        "destination":  "game/data/scripts/handlers/chat/commands/voiced/BotCommand.java",
+                        "sha256":  "0878A6CD50CA7D4F5E93D4E59875BE2D06A81A78F870B9ADEE783F4935A93BF9"
+                    },
+                    {
+                        "op":  "COPY",
+                        "source":  "payload/BotManagerBypass.java",
+                        "destination":  "game/data/scripts/handlers/bypass/BotManagerBypass.java",
+                        "sha256":  "FE1A3EF383901F4530D37CA6DEAC6EC6CDA4F4DBBE094A39A0A0CE21018DA751"
+                    },
+                    {
+                        "op":  "REPLACE",
+                        "source":  "payload/MasterHandler.java",
+                        "destination":  "game/data/scripts/handlers/MasterHandler.java",
+                        "sha256":  "0AFAE17F73A3A1C384470F5BD2DD40DB284999E0F0D65A63F7868D7CE020515D",
+                        "op_note":  "v2.7: registra AdminHandoffTest (//handoff) y AdminSwapTest (//swaptest) - dependencias de produccion del flujo Login del .bot"
+                    },
+                    {
+                        "op":  "COPY",
+                        "source":  "payload/AdminHandoffTest.java",
+                        "destination":  "game/data/scripts/handlers/chat/commands/admin/AdminHandoffTest.java",
+                        "sha256":  "67CB092E816578CF5C302AC3C3953DFDA7E962220200595EAAFB4C935C8E5FA1",
+                        "op_note":  "v2.7: POC HANDOFF promovido a produccion - transferencia de control con party: captura de OrchestratorState antes del detach, transferencia tras adjuntar el nuevo controlador, limpieza de la fila offline-play del controlador saliente en exito"
+                    },
+                    {
+                        "op":  "COPY",
+                        "source":  "payload/AdminSwapTest.java",
+                        "destination":  "game/data/scripts/handlers/chat/commands/admin/AdminSwapTest.java",
+                        "sha256":  "1D56B1C2E05B8935F56D292DD7AFD125BEBF7A054496BE4D7B0B3F777509E456",
+                        "op_note":  "v2.7: POC SWAP promovido a produccion - cambio de personaje sin party (saveAndStoreWith + doSelect) con transferencia de orquestacion al nuevo controlador"
+                    },
+                    {
+                        "op":  "REPLACE",
+                        "source":  "payload/Resurrection.java",
+                        "destination":  "game/data/scripts/handlers/skill/effects/Resurrection.java",
+                        "sha256":  "EB727FC556EECDA9ADE69C7AF25239BC2DF7B08644AB6018B36A8DA5272BFC58"
+                    },
+                    {
+                        "op":  "COPY",
+                        "source":  "payload/AutoPlay.java",
+                        "destination":  "game/data/scripts/handlers/chat/commands/voiced/AutoPlay.java",
+                        "sha256":  "54596DBE6B177B78120474B65E4535A115C7B7D66A78B15DE1DCFE33365B0AB6",
+                        "op_note":  "v2.4: casos .play fightback/tsearch (BOT_FIGHTBACK OFF, BOT_TSEARCH ON), filas Fight Back/Target Search en openStatusWindow"
+                    },
+                    {
+                        "op":  "COPY",
+                        "source":  "payload/Main.htm",
+                        "destination":  "game/data/html/mods/AutoPlay/Main.htm",
+                        "sha256":  "5B6A8AEA8D1D9589B5ED9E0F3398D2525779A207DBA92DC5745C6D6EA4926E08",
+                        "op_note":  "v2.4: +filas Fight Back/Target Search (%fightback_row%, %tsearch_row%), valign=top en ambas columnas (Target Mode no se corre)"
+                    },
+                    {
+                        "op":  "COMPILE",
+                        "source":  "payload/AutoPotionTaskManager.java",
+                        "destination":  null,
+                        "sha256":  "96DF5982B34A4D05788E958AE5835865C5E4B9CCA7082F34E39242949C582EBA",
+                        "required_source_marker":  "isOnline",
+                        "forbidden_source_marker":  "isOnlineInt() == 0",
+                        "op_note":  "v2.4: muerte/revive ya no borra del set (continue), try/finally en _working"
+                    },
+                    {
+                        "op":  "COMPILE",
+                        "source":  "payload/AutoUseTaskManager.java",
+                        "destination":  null,
+                        "sha256":  "16D16EC5ED44FA9674DC77BA9B987590014111920C8EB741A6E1B55BFE316948",
+                        "required_source_marker":  "Resurrection gate",
+                        "forbidden_source_marker":  "AbnormalType.DOOM",
+                        "op_note":  "v2.9: curacion del Cardinal con las nueve habilidades (1011, 1015, 1027, 1217, 1218, 1219, 1401, 1402, 1553) bajo el mismo umbral getAutoPotionPercent(); escalones por gravedad del herido (1401 grave / 1218-1217 medias / 1015-1011 leves / 1402-1219-1027 grupales / 1553 cadena) con cada escalon ROTADO un paso por pasada: con orden fijo, Major Heal (reuso 1 s) monopolizaba el turno y el resto de curaciones configuradas no se lanzaba nunca (sintoma observado en juego); getKnownHeal solo decide participacion, de modo que cada id conserva su targetType nativo (ONE, PARTY, AREA_FRIENDLY); 1258 Restore Life, 1335 Balance Life y Self Heal (1216/6847) quedan fuera. castOnSupportTarget devuelve el resultado real de ESTE intento: isCastingNow() directo (la pasada solo corta con ese flag y todo camino de aborto lo limpia) y el flag simultaneo solo si se enciende durante la llamada, porque un casteo simultaneo heredado (skill de item, hierba) sobrevive al guard y no es resultado de este intento. Hereda v2.6 (canUseMagic pre-cast, HEAL excluido de la rama de canciones/danzas) y v2.8 (SkillRules inertes)"
+                    },
+                    {
+                        "op":  "COMPILE",
+                        "source":  "payload/AutoPlayTaskManager.java",
+                        "destination":  null,
+                        "sha256":  "ED86900A85452A3E1AB7B783E935F481065888A828E419BF4F5ED6F1ECA20F76",
+                        "required_source_marker":  "BOT_FIGHTBACK",
+                        "forbidden_source_marker":  "setAssistWithoutFollowEnabled",
+                        "op_note":  "v2.4: pasada prioritaria fight back, gate BOT_TSEARCH, corpse-hold de playable, auto-eviccion del pool con flag OFF"
+                    },
+                    {
+                        "op":  "COPY",
+                        "source":  "payload/SkillRules.java",
+                        "destination":  "game/data/scripts/handlers/custom/bot/SkillRules.java",
+                        "sha256":  "0C50A3E47CED402D082BB6D52548503AAFCE4E7536FBE43085A4851AF31D368D",
+                        "op_note":  "v2.8 Skill Intelligence F1: modelo de reglas por habilidad, validacion, serializacion (5 campos, 6 para HURT_COUNT) y resolucion de estado. Inerte: nada lo referencia."
+                    },
+                    {
+                        "op":  "COPY",
+                        "source":  "payload/BotSkillRules.java",
+                        "destination":  "game/data/scripts/handlers/custom/bot/BotSkillRules.java",
+                        "sha256":  "51D473452B3DE3A8BEC2ECFAE53B636965CA6A3F878B194234573F0BC4EF8494",
+                        "op_note":  "v2.8 Skill Intelligence F1: persistencia en character_variables (BOT_SKILL_RULES, BOT_SKILL_CONDITIONS, BOT_SKILL_RULES_VERSION, BOT_SKILL_RULES_ACTIVE) y puerta maestra. Inerte."
+                    },
+                    {
+                        "op":  "COPY",
+                        "source":  "payload/SkillRuleEvaluator.java",
+                        "destination":  "game/data/scripts/handlers/custom/bot/SkillRuleEvaluator.java",
+                        "sha256":  "54EE7D4D7B0FE791185867E6D65FB2C402CC3253175AA64DD3A889FCF0C7B6B1",
+                        "op_note":  "v2.8 Skill Intelligence F2: evaluador puro sin dependencias L2J. Siete veredictos, precedencia y AND trivalente. Inerte."
+                    },
+                    {
+                        "op":  "COPY",
+                        "source":  "payload/BotSkillRuleContext.java",
+                        "destination":  "game/data/scripts/handlers/custom/bot/BotSkillRuleContext.java",
+                        "sha256":  "9F16EEF7A1C002E7B3CCA3B39DB8C169950E3B96321F336DCD63930AA5ABFAF0",
+                        "op_note":  "v2.8 Skill Intelligence F2: instantanea de solo lectura desde APIs de Mobius. Elegibilidad de grupo fiel a countHurtMembers (los clientless SI cuentan). Inerte."
+                    }
+                ],
+    "core_entries":  [
+                         {
+                             "jar":  "libs/GameServer.jar",
+                             "entry":  "org/l2jmobius/gameserver/taskmanagers/AutoPotionTaskManager.class",
+                             "expected_size":  5051,
+                             "class_major":  71,
+                             "expected_class_sha256":  "4BD1EB1491763A405CD5C6061F58B4EA71BFAFB5F8247492FC4FB6B54C548E8D",
+                             "required_class_marker":  "isOnline",
+                             "forbidden_class_marker":  "isOnlineInt",
+                             "must_not_modify":  "org/l2jmobius/gameserver/taskmanagers/AutoPotionTaskManager$SingletonHolder.class"
+                         },
+                         {
+                             "jar":  "libs/GameServer.jar",
+                             "entry":  "org/l2jmobius/gameserver/taskmanagers/AutoUseTaskManager$AutoUse.class",
+                             "expected_size":  21657,
+                             "class_major":  71,
+                             "expected_class_sha256":  "29537E614FE48566868DF1926E90EB6A7AFD3C556E41E970C3EF318275C4482B",
+                             "required_class_marker":  "hasSkillReuse",
+                             "forbidden_class_marker":  "AbnormalType.DOOM",
+                             "must_not_modify":  "org/l2jmobius/gameserver/taskmanagers/AutoUseTaskManager$SingletonHolder.class"
+                         },
+                         {
+                             "jar":  "libs/GameServer.jar",
+                             "entry":  "org/l2jmobius/gameserver/taskmanagers/AutoPlayTaskManager$AutoPlay.class",
+                             "expected_size":  14177,
+                             "class_major":  71,
+                             "expected_class_sha256":  "C18C2EF473DBBD4D38E74C8B16A051FAFB6A030A5A8CA71DAF4DD71E86B97CF6",
+                             "required_class_marker":  "BOT_FIGHTBACK",
+                             "forbidden_class_marker":  "setAssistWithoutFollowEnabled",
+                             "must_not_modify":  "org/l2jmobius/gameserver/taskmanagers/AutoPlayTaskManager$SingletonHolder.class"
+                         },
+                         {
+                             "jar":  "libs/GameServer.jar",
+                             "entry":  "org/l2jmobius/gameserver/taskmanagers/AutoPlayTaskManager.class",
+                             "expected_size":  3887,
+                             "class_major":  71,
+                             "expected_class_sha256":  "125EDB816B47F5DF114D4C64FE4BBFDB31EF79D6B60846B9EDD8000EA9D20804",
+                             "required_class_marker":  "setAssistWithoutFollow",
+                             "forbidden_class_marker":  "setAssistWithoutFollowEnabled",
+                             "must_not_modify":  "org/l2jmobius/gameserver/taskmanagers/AutoPlayTaskManager$SingletonHolder.class"
+                         },
+                         {
+                             "jar":  "libs/GameServer.jar",
+                             "entry":  "org/l2jmobius/gameserver/taskmanagers/AutoUseTaskManager.class",
+                             "expected_size":  3592,
+                             "class_major":  71,
+                             "expected_class_sha256":  "2FACFB82B05DF91FAE83CBE105916B35A85CB09305FB7479901B6D751BA9808D",
+                             "required_class_marker":  "startAutoUseTask",
+                             "forbidden_class_marker":  "AbnormalType.DOOM",
+                             "must_not_modify":  "org/l2jmobius/gameserver/taskmanagers/AutoUseTaskManager$SingletonHolder.class"
+                         }
+                     ],
+    "core_entry":  {
+                       "jar":  "libs/GameServer.jar",
+                       "entry":  "org/l2jmobius/gameserver/taskmanagers/AutoPotionTaskManager.class",
+                       "must_not_modify":  "org/l2jmobius/gameserver/taskmanagers/AutoPotionTaskManager$SingletonHolder.class"
+                   },
+    "config":  [
+                   {
+                       "file":  "game/config/Custom/AutoPlay.ini",
+                       "key":  "EnableAutoPlay",
+                       "value":  "True"
+                   },
+                   {
+                       "file":  "game/config/Custom/AutoPlay.ini",
+                       "key":  "AssistLeader",
+                       "value":  "True"
+                   },
+                   {
+                       "file":  "game/config/Custom/AutoPotions.ini",
+                       "key":  "AutoPotionsEnabled",
+                       "value":  "true"
+                   },
+                   {
+                       "file":  "game/config/Server.ini",
+                       "key":  "CharMaxNumber",
+                       "value":  "9"
+                   },
+                   {
+                       "file":  "game/config/Player.ini",
+                       "key":  "AutoLearnSkills",
+                       "value":  "True"
+                   },
+                   {
+                       "file":  "game/config/Player.ini",
+                       "key":  "AutoLearnSkillsWithoutItems",
+                       "value":  "True"
+                   },
+                   {
+                       "file":  "game/config/Player.ini",
+                       "key":  "AutoLearnForgottenScrollSkills",
+                       "value":  "True"
+                   },
+                   {
+                       "file":  "game/config/Player.ini",
+                       "key":  "AutoLearnDivineInspiration",
+                       "value":  "True"
+                   },
+                   {
+                       "file":  "game/config/Player.ini",
+                       "key":  "DivineInspirationSpBookNeeded",
+                       "value":  "False"
+                   },
+                   {
+                       "file":  "game/config/Player.ini",
+                       "key":  "AutoLoot",
+                       "value":  "True"
+                   },
+                   {
+                       "file":  "game/config/Player.ini",
+                       "key":  "AutoLootRaids",
+                       "value":  "True"
+                   },
+                   {
+                       "file":  "game/config/Player.ini",
+                       "key":  "AutoLootHerbs",
+                       "value":  "False"
+                   },
+                   {
+                       "file":  "game/config/Player.ini",
+                       "key":  "AltWeightLimit",
+                       "value":  "20"
+                   },
+                   {
+                       "file":  "game/config/Player.ini",
+                       "key":  "DanceCancelBuff",
+                       "value":  "True"
+                   }
+               ],
+    "backup":  {
+                   "sources":  [
+                                   "game/data/scripts/handlers/MasterHandler.java",
+                                   "game/data/scripts/handlers/skill/effects/Resurrection.java",
+                                   "libs/GameServer.jar",
+                                   "game/config/Custom/AutoPlay.ini",
+                                   "game/config/Custom/AutoPotions.ini",
+                                   "game/config/Server.ini",
+                                   "game/config/Player.ini",
+                                   "game/data/scripts/handlers/chat/commands/voiced/AutoPlay.java",
+                                   "game/data/html/mods/AutoPlay/Main.htm",
+                                   "game/data/stats/skills/custom/10000-10099.xml"
+                               ],
+                   "absent_on_clean_runtime":  [
+                                                   "game/data/scripts/handlers/chat/commands/admin/AdminBotManager.java",
+                                                   "game/data/scripts/handlers/chat/commands/admin/AdminHandoffTest.java",
+                                                   "game/data/scripts/handlers/chat/commands/admin/AdminSwapTest.java",
+                                                   "game/data/scripts/handlers/chat/commands/voiced/BotCommand.java",
+                                                   "game/data/scripts/handlers/bypass/BotManagerBypass.java",
+                                                   "game/data/scripts/handlers/custom/bot/AutoPlayProfileBuilder.java",
+                                                   "game/data/scripts/handlers/custom/bot/BotFormationMode.java",
+                                                   "game/data/scripts/handlers/custom/bot/SkillRules.java",
+                                                   "game/data/scripts/handlers/custom/bot/BotSkillRules.java",
+                                                   "game/data/scripts/handlers/custom/bot/SkillRuleEvaluator.java",
+                                                   "game/data/scripts/handlers/custom/bot/BotSkillRuleContext.java"
+                                               ],
+                   "read_only":  [
+                                     "game/data/scripts/handlers/EffectMasterHandler.java"
+                                 ]
+               },
+    "residue_paths":  [
+                          "game/data/scripts/handlers/chat/commands/admin/AdminBotManager.java",
+                          "game/data/scripts/handlers/chat/commands/admin/AdminHandoffTest.java",
+                          "game/data/scripts/handlers/chat/commands/admin/AdminSwapTest.java",
+                          "game/data/scripts/handlers/chat/commands/voiced/BotCommand.java",
+                          "game/data/scripts/handlers/bypass/BotManagerBypass.java",
+                          "game/data/scripts/handlers/custom/bot/AutoPlayProfileBuilder.java",
+                          "game/data/scripts/handlers/custom/bot/BotFormationMode.java",
+                          "game/data/scripts/handlers/custom/bot/SkillRules.java",
+                          "game/data/scripts/handlers/custom/bot/BotSkillRules.java",
+                          "game/data/scripts/handlers/custom/bot/SkillRuleEvaluator.java",
+                          "game/data/scripts/handlers/custom/bot/BotSkillRuleContext.java"
+                      ],
+    "expected":  {
+                     "jar_entries_changed":  5,
+                     "jar_entries_added":  0,
+                     "jar_entries_removed":  0,
+                     "installed_backups":  10,
+                     "forbidden_tokens":  [
+                                              "GM_SLOT",
+                                              "admin_bot",
+                                              "IAdminCommandHandler",
+                                              "requireConfirm"
+                                          ]
+                 },
+    "runtime_layout":  {
+                           "required_dirs":  [
+                                                 "game",
+                                                 "game/config",
+                                                 "game/data/scripts/handlers",
+                                                 "libs"
+                                             ],
+                           "required_files":  [
+                                                  "libs/GameServer.jar",
+                                                  "game/data/scripts/handlers/MasterHandler.java",
+                                                  "game/data/scripts/handlers/skill/effects/Resurrection.java",
+                                                  "game/data/scripts/handlers/EffectMasterHandler.java",
+                                                  "game/data/scripts/handlers/chat/commands/voiced/AutoPlay.java",
+                                                  "game/data/html/mods/AutoPlay/Main.htm",
+                                                  "game/config/Custom/AutoPlay.ini",
+                                                  "game/config/Custom/AutoPotions.ini",
+                                                  "game/config/Server.ini",
+                                                  "game/config/Player.ini",
+                                                  "game/data/stats/skills/custom/10000-10099.xml"
+                                              ]
+                       }
+}
