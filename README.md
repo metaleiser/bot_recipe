@@ -14,19 +14,19 @@ Basado en L2J Mobius (MIT License) — https://l2jmobius.org. Bot Recipe se dist
 
 ### Tu party completa en ciudad
 
-![](docs/images/Tu%20bot%20control%20%E2%80%94%20ventana%20.bot.jpg)
+![](docs/images/Tu%20party%20completa%20en%20ciudad.jpg)
 
 Cualquier personaje de tu cuenta (conectado) + hasta 8 bots de tu misma cuenta en party. No son NPCs. Son `Player` reales con `GameClient == null` (clientless).
 
 ### Formación en anillo — Formation ON
 
-![](docs/images/Tu%20party%20completa%20en%20ciudad.jpg)
+![](docs/images/Formaci%C3%B3n%20en%20anillo%20%E2%80%94%20Formation%20ON.jpg)
 
 Cada bot guarda su anillo alrededor tuyo. Corres, te siguen. Paras, se ordenan. En la captura: vista cenital con tu party en formación.
 
 ### Tu bot control — ventana `.bot`
 
-![](docs/images/Formaci%C3%B3n%20en%20anillo%20%E2%80%94%20Formation%20ON.jpg)
+![](docs/images/Tu%20bot%20control%20%E2%80%94%20ventana%20.bot.jpg)
 
 Escribes `.bot` y se abre. `START` = tu autofarm. `Autofarm / Assist / Formation` = 3 interruptores de la party. `Dismiss All` = apagar limpio. Cada fila `[Login] [Config]` = slot 2..9. `[Login]` mete/saca sin logout. `[Config]` configura sin salir.
 
