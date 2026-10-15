@@ -1,6 +1,6 @@
 # Bot Recipe — Party server-side (.bot) para L2J Mobius H5
 
-> Mi aporte a la comunidad L2J Mobius. Soy cocinero: esto es mi receta para jugar con tu propia party sin abrir 8 PCs.
+> Aporte a la comunidad L2J Mobius. Juega con tu propia party sin abrir varios clientes.
 > Convierte los otros personajes de **tu misma cuenta** en compañeros de party reales, persistentes y server-side, que te siguen, asisten y combaten.
 
 **Requiere: L2J Mobius CT 2.6 High Five actual (JDK 27) + BellSoft Liberica 27+36**
@@ -16,19 +16,19 @@ Basado en L2J Mobius (MIT License) — https://l2jmobius.org. Bot Recipe se dist
 
 ![](docs/images/01-party-lineup.jpg)
 
-ADMIN Lv.85 Cardinal (tú, conectado) + 8 bots Lv.84 de tu misma cuenta: Phoenix, Duelist, Arica, Brutaleiser, Metaleiser, Maldita, Churro, Maldito. No son NPCs. Son `Player` reales con `GameClient == null` (clientless).
+Cualquier personaje de tu cuenta (conectado) + hasta 8 bots de tu misma cuenta en party. No son NPCs. Son `Player` reales con `GameClient == null` (clientless).
 
-### Formación desde arriba — Formation ON
+### Formación en anillo — Formation ON
 
-![](docs/images/02-formation-top.jpg)
+![](docs/images/02-formation-ring.jpg)
 
-Cada bot guarda su anillo alrededor tuyo. Corres, te siguen. Paras, se ordenan.
+Cada bot guarda su anillo alrededor tuyo. Corres, te siguen. Paras, se ordenan. En la captura: tu bot control abierto con tu party en formación detrás.
 
-### Tu plancha de mando — ventana `.bot`
+### Tu bot control — ventana `.bot`
 
 ![](docs/images/03-bots-panel.jpg)
 
-Escribes `.bot` y se abre. `START` = tu autofarm. `Autofarm / Assist / Formation` = 3 interruptores de la party. `Dismiss All` = apagar limpio. Cada fila `84 Phoenix Phoenix Knight [Login] [Config]` = slot 2..9. `[Login]` mete/saca sin logout. `[Config]` configura sin salir.
+Escribes `.bot` y se abre. `START` = tu autofarm. `Autofarm / Assist / Formation` = 3 interruptores de la party. `Dismiss All` = apagar limpio. Cada fila `[Login] [Config]` = slot 2..9. `[Login]` mete/saca sin logout. `[Config]` configura sin salir.
 
 ### El `.play` espejado — Auto Play Config
 
