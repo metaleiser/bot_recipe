@@ -22,7 +22,7 @@ Cualquier personaje de tu cuenta (conectado) + hasta 8 bots de tu misma cuenta e
 
 ![](docs/images/02-formation-ring.jpg)
 
-Cada bot guarda su anillo alrededor tuyo. Corres, te siguen. Paras, se ordenan. En la captura: tu bot control abierto con tu party en formación detrás.
+Cada bot guarda su anillo alrededor tuyo. Corres, te siguen. Paras, se ordenan. En la captura: vista cenital con tu party en formación.
 
 ### Tu bot control — ventana `.bot`
 
